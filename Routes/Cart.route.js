@@ -1,18 +1,9 @@
 const { Router } = require("express");
 const app = Router();
 const Cart = require("../Model/Cart.model");
-const middleWare = (req, res, next) => {
-  const authHeader = req.headers["x-authorization"];
-  if (authHeader) {
-    const id = authHeader.split(" ")[1];
-    req.user_id = id;
-    next();
-  } else {
-    res.status(401).send("You are not authonticated");
-  }
-};
 
-app.get("/", middleWare, async (req, res) => {
+
+app.get("/",  async (req, res) => {
   const id = req.user_id;
   try {
     const cart = await Cart.find({ user_id: id });
@@ -23,7 +14,7 @@ app.get("/", middleWare, async (req, res) => {
 
 
 });
-app.get("/total", middleWare, async (req, res) => {
+app.get("/total",async (req, res) => {
   const id = req.user_id;
   try {
     let sum = 0;
