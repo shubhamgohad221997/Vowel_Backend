@@ -6,7 +6,7 @@ const Cart = require("../Model/Cart.model");
 app.get("/",  async (req, res) => {
   const id = req.user_id;
   try {
-    const cart = await Cart.find({ user_id: id });
+    const cart = await Cart.find();
     return res.status(200).send(cart);
   } catch (e) {
     return res.status(500).send({ message: "Internal Server Error", e });
